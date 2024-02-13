@@ -1,4 +1,5 @@
 import React from "react";
+import Button from "./Button";
 
 const Login = () => {
     return (
@@ -17,6 +18,11 @@ const Login = () => {
                         <input type="text" id="name" placeholder="Enter" className="block w-64 px-4 py-2 mt-2 text-black bg-white border-2 border-black rounded-xl focus:border-slate-400 focus:ring-purple-300 focus:outline-none " required />
                         </div>
                 </div>
+                        <div className="mt-6 flex justify-center ">
+          <Button type="submit" variant="success">
+            Log In
+          </Button>
+        </div>
             </form> 
         </div>
     );

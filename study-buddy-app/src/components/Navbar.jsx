@@ -7,12 +7,13 @@ const Navbar = () => {
       <div className="sticky top-0 w-full">
         <header className="w-full h-20 bg-slate-50 drop-shadow-md">
           <div className=" flex items-center w-full h-full justify-between px-6">
-            <div
+            <a
+              href="/"
               className="text-black pl-4"
               style={{ fontFamily: "lato", fontWeight: 800, fontSize: "40px" }}
             >
               Study Buddies
-            </div>
+            </a>
             <nav>
                           <ul className="space-x-5 flex pr-4 ">
                               <li style={{ fontFamily: "lato", fontWeight: 600, fontSize: "20px" }}><Link to="/login">Log in</Link></li>
