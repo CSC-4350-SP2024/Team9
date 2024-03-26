@@ -7,6 +7,8 @@ import ChatPage from "./pages/chatPage.jsx";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Dashboard from "./pages/dashboard.jsx";
 import Profile from "./pages/Profile.jsx";
+import PairingSuggestionPage from "./pages/pairingSuggestionPage.jsx";
+
 
 function App() {
   return (
@@ -18,6 +20,7 @@ function App() {
         <Route path="/chatPage" element={<ChatPage />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/pairingSuggestionPage" element={<PairingSuggestionPage />} />
         {/* Add more routes as needed */}
       </Routes>
     </Router>
