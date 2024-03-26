@@ -1,31 +1,59 @@
-import React from "react";
-import Button from "../Button";
+import React, { useState } from 'react';
 
-const Login = () => {
-    return (
-        <div className="w-full h-screen pt-16 bg-slate-50">
-            <h1 className="text-3xl font-semibol text-center text-black">Log in</h1>
-            <form className="mt-6">
-                <div className="mb-2">
-                    <label className="block text-sm font-semibold text-center text-black">Email:</label>
-                    <div className="flex justify-center">
-                        <input type="text" id="name" placeholder="Email" className="block w-64 px-4 py-2 mt-2 text-black bg-white border-2 border-black rounded-xl focus:border-slate-400 focus:ring-purple-300 focus:outline-none " required />
-                        </div>
-                </div>
-                 <div className="mb-2">
-                    <label className="block text-sm font-semibold text-center text-black">Password:</label>
-                    <div className="flex justify-center">
-                        <input type="text" id="password" placeholder="Password" className="block w-64 px-4 py-2 mt-2 text-black bg-white border-2 border-black rounded-xl focus:border-slate-400 focus:ring-purple-300 focus:outline-none " required />
-                        </div>
-                </div>
-                        <div className="mt-6 flex justify-center ">
-          <Button type="submit" variant="success">
-            Log In
-          </Button>
-        </div>
-            </form> 
-        </div>
-    );
+const LoginPage = () => {
+  const [formData, setFormData] = useState({ email: '', password: '' });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Add your login logic here
+    console.log('Logging in with:', formData);
+  };
+
+  return (
+    <div className="flex justify-center items-center h-screen bg-slate-100">
+      <div className="w-full max-w-md p-8 bg-white rounded shadow-md">
+        <h2 className="text-2xl font-bold text-gray-900 mb-8">Login</h2>
+
+        <form onSubmit={handleSubmit}>
+          <div className="mb-4">
+            <label htmlFor="email" className="block mb-2 font-semibold">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+              required
+            />
+          </div>
+
+          <div className="mb-4">
+            <label htmlFor="password" className="block mb-2 font-semibold">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+              required
+            />
+          </div>
+
+          <div className="flex justify-center">
+            <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Login</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
 };
 
-export default Login;
+export default LoginPage;
+

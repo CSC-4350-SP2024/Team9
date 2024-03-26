@@ -38,6 +38,10 @@ User.init(
         len: [8],
       },
     },
+    is_individual: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+    },
   },
   {
     hooks: {
