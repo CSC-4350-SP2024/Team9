@@ -1,87 +1,75 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Button from "../Button";
+import React, { useState } from 'react';
 
-const Signup = () => {
-  const [formData, setFormData] = useState({
-    username: "",
-    email: "",
-    password: ""
-  });
+const SignupPage = () => {
+  const [formData, setFormData] = useState({ name: '', email: '', password: '' });
 
-  const navigate = useNavigate();
-
-  const handleInputChange = (e) => {
-    setFormData({ ...formData, [e.target.id]: e.target.value });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   };
 
-  const handleSignup = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-
-    try {
-      const response = await fetch("http://localhost:3000/api/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(formData)
-      });
-      
-      if (response.ok) {
-        navigate('/login');
-      } else {
-        console.error("Signup failed!");
-      }
-    } catch (error) {
-      console.error("Error during signup:", error);
-    }
+  
+    console.log('Signing up with:', formData);
   };
 
   return (
-    <div className="w-full h-lvh pt-12 bg-slate-50 flex justify-center">
-      <form className="mt-6" onSubmit={handleSignup}>
-        <h1 className="text-3xl font-semibol text-center text-black pb-4">Sign Up</h1>
-        <div className="mb-4">
-          <label htmlFor="username" className="block text-sm font-semibold text-center text-black">Username:</label>
-          <input
-            type="text"
-            id="username"
-            placeholder="Username"
-            className="block w-64 px-4 py-2 mt-2 text-black bg-white border-2 border-black rounded-xl focus:border-purple-400 focus:ring-purple-300 focus:outline-none"
-            required
-            onChange={handleInputChange}
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="email" className="block text-sm font-semibold text-center text-black">Email:</label>
-          <input
-            type="email"
-            id="email"
-            placeholder="Email"
-            className="block w-64 px-4 py-2 mt-2 text-black bg-white border-2 border-black rounded-xl focus:border-purple-400 focus:ring-purple-300 focus:outline-none"
-            required
-            onChange={handleInputChange}
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="password" className="block text-sm font-semibold text-center text-black">Password:</label>
-          <input
-            type="password"
-            id="password"
-            placeholder="Password"
-            className="block w-64 px-4 py-2 mt-2 text-black bg-white border-2 border-black rounded-xl focus:border-purple-400 focus:ring-purple-300 focus:outline-none"
-            required
-            onChange={handleInputChange}
-          />
-        </div>
-        <div className="flex justify-center">
-          <Button type="submit" variant="success">Sign Up</Button>
-        </div>
-      </form>
+    <div className="flex justify-center items-center h-screen bg-slate-100">
+      <div className="w-full max-w-md p-8 bg-white rounded shadow-md">
+        <h2 className="text-2xl font-bold text-gray-900 mb-8">Sign Up</h2>
+
+        <form onSubmit={handleSubmit}>
+          <div className="mb-4">
+            <label htmlFor="name" className="block mb-2 font-semibold">Name</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+              required
+            />
+          </div>
+
+          <div className="mb-4">
+            <label htmlFor="email" className="block mb-2 font-semibold">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+              required
+            />
+          </div>
+
+          <div className="mb-4">
+            <label htmlFor="password" className="block mb-2 font-semibold">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+              required
+            />
+          </div>
+
+          <div className="flex justify-center">
+            <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Sign Up</button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
 
-export default Signup;
+export default SignupPage;
+
+
 
 

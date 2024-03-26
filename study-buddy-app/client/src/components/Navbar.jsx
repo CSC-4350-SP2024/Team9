@@ -19,6 +19,8 @@ const Navbar = () => {
                               <li style={{ fontFamily: "lato", fontWeight: 600, fontSize: "20px" }}><Link to="/login">Log in</Link></li>
                 <li style={{ fontFamily: "lato", fontWeight: 600, fontSize: "20px" }}><Link to="/signup">Sign Up</Link></li>
                 <li style={{ fontFamily: "lato", fontWeight: 600, fontSize: "20px" }}><Link to="/chatPage">Chat</Link></li>
+                <li style={{ fontFamily: "lato", fontWeight: 600, fontSize: "20px" }}><Link to="/dashboard">Dashboard</Link></li>
+                <li style={{ fontFamily: "lato", fontWeight: 600, fontSize: "20px" }}><Link to="/profile">Profile Page</Link></li>
               </ul>
             </nav>
           </div>
