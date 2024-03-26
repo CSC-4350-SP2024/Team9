@@ -18,9 +18,8 @@ const Navbar = () => {
                           <ul className="space-x-5 flex pr-4 ">
                               <li style={{ fontFamily: "lato", fontWeight: 600, fontSize: "20px" }}><Link to="/login">Log in</Link></li>
                 <li style={{ fontFamily: "lato", fontWeight: 600, fontSize: "20px" }}><Link to="/signup">Sign Up</Link></li>
-                <li style={{ fontFamily: "lato", fontWeight: 600, fontSize: "20px" }}><Link to="/chatPage">Chat</Link></li>
-                <li style={{ fontFamily: "lato", fontWeight: 600, fontSize: "20px" }}><Link to="/dashboard">Dashboard</Link></li>
-                <li style={{ fontFamily: "lato", fontWeight: 600, fontSize: "20px" }}><Link to="/profile">Profile Page</Link></li>
+
+                {/* <li style={{ fontFamily: "lato", fontWeight: 600, fontSize: "20px" }}><Link to="/dashboard">Dashboard</Link></li> */}
               </ul>
             </nav>
           </div>
