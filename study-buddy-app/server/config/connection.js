@@ -1,7 +1,7 @@
 //connecting to database
 const { Sequelize } = require("sequelize");
 
-const sequelize = new Sequelize("studybuddy_db", "root", "password", {
+const sequelize = new Sequelize("studybuddy_db", "root", "$Vale072801", {
   host: "localhost",
   dialect: "mysql",
 });
@@ -15,5 +15,5 @@ async function testConnection() {
     console.error("unable to connect to the database", error);
   }
 }
-
+testConnection();
 module.exports = sequelize;

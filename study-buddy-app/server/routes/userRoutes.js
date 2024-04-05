@@ -17,7 +17,7 @@ router.post("/signup", async (req, res) => {
       res.status(200).json(createUser);
     });
   } catch (err) {
-    console.log(err);
+    console.error("Error during signup:", err);
     res.status(500).json(err);
   }
 });

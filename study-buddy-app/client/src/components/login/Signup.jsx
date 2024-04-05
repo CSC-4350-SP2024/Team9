@@ -1,17 +1,32 @@
 import React, { useState } from 'react';
+import { useNavigate} from 'react-router-dom';
 
 const SignupPage = () => {
-  const [formData, setFormData] = useState({ name: '', email: '', password: '' });
-
-  const handleChange = (e) => {
+  const [formData, setFormData] = useState({ email: '', username:'', password: '' });
+  const navigate = useNavigate();
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-  
-    console.log('Signing up with:', formData);
+    try {
+      const response = await fetch(`/api/signup`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        }, 
+        body: JSON.stringify(formData),
+      })
+      if (!response.ok) {
+        throw new Error('Network is not ok');
+      }
+       navigate('/dashboard');
+    } catch (err) {
+      console.error(err);
+    }
+
   };
 
   return (
@@ -20,18 +35,7 @@ const SignupPage = () => {
         <h2 className="text-2xl font-bold text-gray-900 mb-8">Sign Up</h2>
 
         <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label htmlFor="name" className="block mb-2 font-semibold">Name</label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-              required
-            />
-          </div>
+
 
           <div className="mb-4">
             <label htmlFor="email" className="block mb-2 font-semibold">Email</label>
@@ -40,7 +44,20 @@ const SignupPage = () => {
               id="email"
               name="email"
               value={formData.email}
-              onChange={handleChange}
+              onChange={handleInputChange}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+              required
+            />
+          </div>
+
+            <div className="mb-4">
+            <label htmlFor="username" className="block mb-2 font-semibold">Username</label>
+            <input
+              type="username"
+              id="username"
+              name="username"
+              value={formData.username}
+              onChange={handleInputChange}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
               required
             />
@@ -53,7 +70,7 @@ const SignupPage = () => {
               id="password"
               name="password"
               value={formData.password}
-              onChange={handleChange}
+              onChange={handleInputChange}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
               required
             />

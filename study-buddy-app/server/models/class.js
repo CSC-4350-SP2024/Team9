@@ -5,13 +5,13 @@ class Class extends Model {}
 
 Class.init(
   {
-    class_id: {
+    id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true,
     },
-    class_name: {
+    name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
