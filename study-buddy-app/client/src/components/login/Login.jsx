@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const LoginPage = () => {
+const LoginPage = ({onLogin}) => {
   const [formData, setFormData] = useState({ email: '', password: '' });
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -22,10 +24,11 @@ const LoginPage = () => {
       if (!response.ok) {
         throw new Error('Login failed');
       }
-
+      onLogin();
+      navigate('/dashboard');
  
     } catch (err) {
-      console.error(err);
+      console.error('Error during login',err);
     }
   };
 

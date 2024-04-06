@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-const SignupPage = () => {
+const SignupPage = ({onLogin}) => {
   const [formData, setFormData] = useState({ email: '', username:'', password: '' });
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -11,6 +13,9 @@ const SignupPage = () => {
 
   const handleSubmit = async(e) => {
     e.preventDefault();
+    if (isLoading) return;
+
+    setIsLoading(true);
     try {
       const response = await fetch(`/api/signup`, {
         method: 'POST',
@@ -18,15 +23,18 @@ const SignupPage = () => {
           'Content-Type': 'application/json',
         }, 
         body: JSON.stringify(formData),
-      })
-      if (!response.ok) {
-        throw new Error('Network is not ok');
-      }
-       navigate('/dashboard');
-    } catch (err) {
-      console.error(err);
-    }
+      });
 
+      if (!response.ok) {
+        throw new Error('Failed to sign up. Please try again.');
+      }
+      onLogin();
+      navigate('/dashboard');
+    } catch (err) {
+      console.error('Error during signup:', err);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -35,8 +43,6 @@ const SignupPage = () => {
         <h2 className="text-2xl font-bold text-gray-900 mb-8">Sign Up</h2>
 
         <form onSubmit={handleSubmit}>
-
-
           <div className="mb-4">
             <label htmlFor="email" className="block mb-2 font-semibold">Email</label>
             <input
@@ -50,7 +56,7 @@ const SignupPage = () => {
             />
           </div>
 
-            <div className="mb-4">
+          <div className="mb-4">
             <label htmlFor="username" className="block mb-2 font-semibold">Username</label>
             <input
               type="username"
@@ -77,7 +83,9 @@ const SignupPage = () => {
           </div>
 
           <div className="flex justify-center">
-            <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Sign Up</button>
+            <button type="submit" className={`bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`} disabled={isLoading}>
+              {isLoading ? 'Signing up...' : 'Sign Up'}
+            </button>
           </div>
         </form>
       </div>
@@ -86,7 +94,3 @@ const SignupPage = () => {
 };
 
 export default SignupPage;
-
-
-
-
