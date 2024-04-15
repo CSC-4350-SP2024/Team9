@@ -9,19 +9,33 @@ import Dashboard from "./pages/dashboard.jsx";
 import Profile from "./pages/Profile.jsx";
 import PairingSuggestionPage from "./pages/pairingSuggestionPage.jsx";
 
+import Home from "./pages/Home.jsx";
+import { useState } from "react";
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+  };
   return (
     <Router>
-      <Navbar />
+      <Navbar isLoggedIn={isLoggedIn} onLogout={handleLogout} />
       <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login onLogin={handleLogin} />} />
+        <Route path="/signup" element={<Signup onLogin={handleLogin} />} />
         <Route path="/chatPage" element={<ChatPage />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/pairingSuggestionPage" element={<PairingSuggestionPage />} />
-        {/* Add more routes as needed */}
+        <Route
+          path="/matches"
+          element={<PairingSuggestionPage />}
+        />
       </Routes>
     </Router>
   );
