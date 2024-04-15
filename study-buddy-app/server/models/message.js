@@ -5,11 +5,15 @@ class Message extends Model {}
 
 Message.init(
   {
-    message_id: {
+    id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true,
+    },
+    sender_username: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     message_content: {
       type: DataTypes.STRING,
