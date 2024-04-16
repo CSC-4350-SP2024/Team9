@@ -3,28 +3,19 @@ const router = express.Router();
 const { Message, User, ChatRoom } = require("../models");
 
 //sign up route
-router.post("/chatPage", async (req, res) => {
+router.post("/createMessage", async (req, res) => {
   try {
-    // const getCurrentUser = await User.findOrCreate({
-    //   where: {
-    //     id: req.user.id,
-    //   },
-    // });
 
     const createMessage = await Message.create({
       message_content: req.body.message_content,
-      sender_username: req.session.currentuser
-      // user_id: req.body.message_coi
+      sender_username: req.session.currentuser,
+      chat_room_id: req.body.chat_room_id
     });
     
     
 
-
-    // req.session.currentuser = req.body.username;
-    // req.session.loggedIn = true;
     req.session.save(() => {
       res.status(200).json(createMessage);
-      // res.status(200).json(getCurrentUser);
     });
   } catch (err) {
     console.error("Error sending message:", err);
@@ -32,12 +23,10 @@ router.post("/chatPage", async (req, res) => {
   }
 });
 
-router.get("/getMessages", async (req, res) => {
+router.get("/getMessages/:chatID", async (req, res) => {
   try {
-    const message = await Message.findAll({ //need to add selecting messages based on chat id
-      // where: { id: req.user.id }, // Assuming you have authentication middleware that adds the user object to the request (req.user)
-      // attributes: ["id", "username", "email"], // Select specific attributes to include in the response
-      // include: [{ model: Class, attributes: ["className"] }], // Assuming you have a separate model for enrolled classes
+    const message = await Message.findAll({
+      where: { chat_room_id: req.params.chatID}
     });
 
     // Send the user data in the response
