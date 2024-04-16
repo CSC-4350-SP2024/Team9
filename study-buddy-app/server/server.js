@@ -4,6 +4,7 @@ const sequelize = require("./config/connection");
 const session = require("express-session");
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
 const cors = require("cors");
+const { User, Class, Pairing, ChatRoom, Message } = require("./models");
 
 const app = express();
 const PORT = process.env.PORT || 4000;

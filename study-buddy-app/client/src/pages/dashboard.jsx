@@ -24,7 +24,7 @@ export const Dashboard = () => {
     fetchInfo();
   }, [classes]);
   return (
-    <div className="flex flex-col items-center bg-slate-100">
+    <div className="flex flex-col items-center bg-slate-100 h-screen">
       <h2 className="text-2xl font-bold text-gray-900 my-8">Dashboard</h2>
 
       <div className="w-full max-w-md">
@@ -38,9 +38,8 @@ export const Dashboard = () => {
         ))}
       </div>
     <div className='flex'>
-      <button className="mt-8 px-6 py-3 bg-green-500 text-white rounded-md hover:bg-green-600"><Link to="/profile"> Edit Profile Page</Link></button>
+      <button className="mt-8 px-6 py-3 bg-green-500 text-white rounded-md hover:bg-green-600">Add Classes</button>
 
-      <button className=" ml-4 mt-8 px-6 py-3 bg-purple-500 text-white rounded-md hover:bg-purple-600">Study Buddy Pairing</button>
           </div>
           </div>
   );

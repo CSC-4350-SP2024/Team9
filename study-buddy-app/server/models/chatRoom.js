@@ -11,10 +11,6 @@ ChatRoom.init(
       primaryKey: true,
       autoIncrement: true,
     },
-    room_name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
     class_id: {
       type: DataTypes.INTEGER,
       allowNull: false,

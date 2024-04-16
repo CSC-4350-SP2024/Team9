@@ -1,6 +1,5 @@
 const User = require("./User");
 const Class = require("./class");
-const UserClass = require("./userclass");
 const Pairing = require("./pairing");
 const ChatRoom = require("./chatRoom");
 const Message = require("./message");
@@ -23,4 +22,4 @@ User.hasMany(Pairing, { foreignKey: "user2_id" });
 ChatRoom.hasMany(Message, { foreignKey: "room_id" });
 Class.hasOne(ChatRoom, { foreignKey: "class_id" });
 
-module.exports = { User, Class, UserClass, Pairing, ChatRoom, Message };
+module.exports = { User, Class, Pairing, ChatRoom, Message };
