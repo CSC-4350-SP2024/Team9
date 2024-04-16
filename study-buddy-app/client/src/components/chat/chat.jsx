@@ -24,7 +24,7 @@ export const Chat = () => {
     <div className='flex-1 fixed w-11/12 h-full top-20'> {/* chat */}
       
         <div className="h-12 bg-slate-300 flex items-center justify-between p-2 text-xl font-bold"> {/* chat info bar */}
-          {courseName.name}
+          {courseName.class_name}
         </div>
       <div className="bg-slate-100 p-2 h-[calc(100%-177px)]">  {/* messages */}
         <Messages />

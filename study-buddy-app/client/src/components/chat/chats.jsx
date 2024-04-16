@@ -5,10 +5,9 @@ import { Link, useParams } from "react-router-dom";
 const Chats = () => {
 const { chatID } = useParams();
 const [classes, setClasses] = useState([]);
-  // const messages = [{id: 1, senderUsername: 'bob', messageContent: 'hello', timestamp: '12:00'}]
 
   const fetchInfo = async () => {
-    return await fetch('/api/getClasses')
+    return await fetch('/api/getUserClasses')
       .then((res) => res.json())
       .then((d) => setClasses(d))
   };
@@ -27,11 +26,11 @@ const [classes, setClasses] = useState([]);
       
       {classes.map((classItem) => (
        
-        <Link to={`/chatPage/${classItem.id}`} onClick={() => changeParameter(classItem.id)}>
+        <Link to={`/chatPage/${classItem.class_id}`} onClick={() => changeParameter(classItem.class_id)}>
           <div className='flex items-center  h-12 p-3 gap-2 justify-left hover:bg-slate-300'> {/* other chats */}
           {/* <img src="" alt="" className='bg-black h-7 w-7 rounded-full object-cover' /> profile pic */}
           
-          <span className='flex gap-2 p-0'>{classItem.name}</span></div></Link>
+          <span className='flex gap-2 p-0'>{classItem.class_name}</span></div></Link>
         
       ))}
     </div>
