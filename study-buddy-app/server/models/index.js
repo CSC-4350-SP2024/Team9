@@ -6,8 +6,8 @@ const ChatRoom = require("./chatRoom");
 const Message = require("./message");
 
 // Define associations
-User.belongsToMany(Class, { through: UserClass });
-Class.belongsToMany(User, { through: UserClass });
+User.belongsToMany(Class, { through: "UserClass" });
+Class.belongsToMany(User, { through: "UserClass" });
 
 Pairing.belongsTo(User, { foreignKey: "user1_id" });
 Pairing.belongsTo(User, { foreignKey: "user2_id" });
