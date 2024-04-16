@@ -24,7 +24,11 @@ Message.init(
       allowNull: false,
       defaultValue: DataTypes.NOW,
     },
-    chat_room_id: {
+    room_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    user_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },

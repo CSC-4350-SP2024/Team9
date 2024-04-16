@@ -26,16 +26,5 @@ Pairing.init(
   }
 );
 
-sequelize
-  .query("ALTER TABLE `pairing` DROP FOREIGN KEY `userpairing_ibfk_2`")
-  .then(() => {
-    return Pairing.sync({ force: true }); // Drops the table
-  })
-  .then(() => {
-    console.log("Pairing table dropped successfully");
-  })
-  .catch((error) => {
-    console.error("Error dropping Pairing table:", error);
-  });
 
 module.exports = Pairing;
