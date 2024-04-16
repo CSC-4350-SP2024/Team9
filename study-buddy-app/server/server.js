@@ -6,7 +6,7 @@ const SequelizeStore = require("connect-session-sequelize")(session.Store);
 const cors = require("cors");
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 
 const sess = {
   secret: "the biggest secret",
