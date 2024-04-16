@@ -21,18 +21,7 @@ function App() {
   const handleLogout = () => {
     setIsLoggedIn(false);
   };
-  //  const [chats, setChats] = useState([]);
-  // // const messages = [{id: 1, senderUsername: 'bob', messageContent: 'hello', timestamp: '12:00'}]
 
-  // const fetchInfo = async () => {
-  //   return await fetch('/api/getChats')
-  //     .then((res) => res.json())
-  //     .then((d) => setChats(d))
-  // };
-
-  // useEffect(() => {
-  //   fetchInfo();
-  // }, [chats]);
   return (
     <Router>
       <Navbar isLoggedIn={isLoggedIn} onLogout={handleLogout} />
@@ -40,9 +29,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
         <Route path="/signup" element={<Signup onLogin={handleLogin} />} />
-        {/* {chats.map((c) => ( */}
         <Route path="/chatPage/:chatID" element={<ChatPage />} />
-        {/* ))} */}
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/matches" element={<PairingSuggestionPage />} />
       </Routes>
