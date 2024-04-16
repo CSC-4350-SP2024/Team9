@@ -9,7 +9,8 @@ router.post("/createMessage", async (req, res) => {
     const createMessage = await Message.create({
       message_content: req.body.message_content,
       sender_username: req.session.currentuser,
-      chat_room_id: req.body.chat_room_id
+      room_id: req.body.chat_room_id,
+      user_id: req.session.userID
     });
     
     
@@ -26,7 +27,7 @@ router.post("/createMessage", async (req, res) => {
 router.get("/getMessages/:chatID", async (req, res) => {
   try {
     const message = await Message.findAll({
-      where: { chat_room_id: req.params.chatID}
+      where: { room_id: req.params.chatID}
     });
 
     // Send the user data in the response

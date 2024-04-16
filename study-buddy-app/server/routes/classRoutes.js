@@ -2,19 +2,19 @@ const express = require("express");
 const router = express.Router();
 const { Class, User } = require("../models");
 
-// router.get("/getCourseName/:chatID", async (req, res) => {
-//   try {
-//     const CourseName = await Class.findOne({
-//       where: { id: req.params.chatID },
-//     });
+router.get("/getCourseName/:chatID", async (req, res) => {  //gets the current course's name to display on top bar
+  try {
+    const CourseName = await Class.findOne({
+      where: { id: req.params.chatID },
+    });
 
-//     // Send the user data in the response
-//     res.json(CourseName);
-//   } catch (error) {
-//     console.error("Error fetching class:", error);
-//     res.status(500).json({ message: "Internal server error" });
-//   }
-// });
+    // Send the user data in the response
+    res.json(CourseName);
+  } catch (error) {
+    console.error("Error fetching class:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
 
 router.get("/getUserClasses", async (req, res) => {
   const userId = req.session.userID; // Assuming you have user authentication and req.user contains user information
