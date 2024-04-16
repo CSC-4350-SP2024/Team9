@@ -10,6 +10,7 @@ export const Dashboard = () => {
   useEffect(() => {
 
     fetchClassList(); 
+    fetchClasses();
   }, []);
 
   const fetchClassList = async () => {
@@ -39,6 +40,7 @@ export const Dashboard = () => {
       if (response.ok) {
   
         fetchClasses();
+        fetchClassList();
 
         setClassList(prevClassList => prevClassList.filter(className => className !== selectedClass));
 
@@ -77,6 +79,7 @@ export const Dashboard = () => {
       });
       if (response.ok) {
         setClasses(classes.filter(classItem => classItem.class_id !== classId));
+        fetchClassList();
       } else {
         throw new Error('Failed to remove class');
       }
@@ -95,7 +98,7 @@ export const Dashboard = () => {
             <div key={classItem.class_id} className="bg-white my-4 p-4 rounded shadow-md w-full flex justify-between items-center">
               <p className="text-lg font-semibold">{classItem.class_name}</p>
               <div className="flex space-x-4">
-                <button className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"><Link to={`/chatPage/${classItem.id}`}>Chat</Link></button>
+                <button className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"><Link to={`/chatPage/${classItem.class_id}`}>Chat</Link></button>
                   <button className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600" onClick={() => handleRemoveClass(classItem.class_id)}>Delete</button>
               </div>
             </div>
