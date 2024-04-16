@@ -24,6 +24,10 @@ Message.init(
       allowNull: false,
       defaultValue: DataTypes.NOW,
     },
+    chat_room_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
   },
   {
     sequelize,
