@@ -35,4 +35,3 @@ Message.init(
 );
 
 module.exports = Message;
-

@@ -1,20 +1,15 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../config/connection");
 
-class Pairing extends Model {}
+class UserClass extends Model {}
 
-Pairing.init(
+UserClass.init(
   {
-    pairing_id: {
+    user_class_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true,
-    },
-    confirmed: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: false,
     },
   },
   {
@@ -22,8 +17,8 @@ Pairing.init(
     timestamps: false,
     freezeTableName: true,
     underscored: true,
-    modelName: "pairing",
+    modelName: "user_class",
   }
 );
 
-module.exports = Pairing;
+module.exports = UserClass;

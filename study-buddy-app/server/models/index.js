@@ -1,20 +1,26 @@
 const User = require("./User");
 const Class = require("./class");
+const UserClass = require("./userclass");
 const Pairing = require("./pairing");
 const ChatRoom = require("./chatRoom");
 const Message = require("./message");
 
-User.belongsToMany(Class, { through: "UserClass" });
-Class.belongsToMany(User, { through: "UserClass" });
+// Define associations
+User.belongsToMany(Class, { through: UserClass });
+Class.belongsToMany(User, { through: UserClass });
 
-User.belongsToMany(Pairing, { through: "UserPairing" });
-Pairing.belongsToMany(User, { through: "UserPairing" });
+Pairing.belongsTo(User, { foreignKey: "user1_id" });
+Pairing.belongsTo(User, { foreignKey: "user2_id" });
 
-Pairing.belongsTo(Class);
-Pairing.hasOne(ChatRoom);
-ChatRoom.belongsTo(Pairing);
+Message.belongsTo(User, { foreignKey: "user_id" });
+Message.belongsTo(ChatRoom, { foreignKey: "room_id" });
 
-ChatRoom.hasMany(Message);
-Message.belongsTo(ChatRoom);
+ChatRoom.belongsTo(Class, { foreignKey: "class_id" });
 
-module.exports = { User, Class, Pairing, ChatRoom, Message };
+User.hasMany(Pairing, { foreignKey: "user1_id" });
+User.hasMany(Pairing, { foreignKey: "user2_id" });
+
+ChatRoom.hasMany(Message, { foreignKey: "room_id" });
+Class.hasOne(ChatRoom, { foreignKey: "class_id" });
+
+module.exports = { User, Class, UserClass, Pairing, ChatRoom, Message };
