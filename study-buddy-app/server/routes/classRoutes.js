@@ -5,7 +5,7 @@ const { Class, User } = require("../models");
 router.get("/getCourseName/:chatID", async (req, res) => {  //gets the current course's name to display on top bar
   try {
     const CourseName = await Class.findOne({
-      where: { id: req.params.chatID },
+      where: { class_id: req.params.chatID },
     });
 
     // Send the user data in the response
