@@ -1,8 +1,11 @@
 import React, { useState, useRef } from 'react'
+import { useParams } from "react-router-dom";
 import Button from "../Button2";
 
 export const Input = () => {
-  const [formData, setFormData] = useState({ message_content: '' });
+  const { chatID } = useParams();
+
+  const [formData, setFormData] = useState({ message_content: '', chat_room_id: chatID });
   const fname = useRef("");
  
   const handleChange = (e) => {
@@ -14,7 +17,7 @@ export const Input = () => {
     e.preventDefault();
     fname.current.value = "";
     try {
-      const response = await fetch('/api/chatPage', {
+      const response = await fetch('/api/createMessage', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
