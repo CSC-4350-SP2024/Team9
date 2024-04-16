@@ -5,11 +5,24 @@ class ChatRoom extends Model {}
 
 ChatRoom.init(
   {
-    id: {
+    room_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true,
+    },
+    room_name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    class_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      unique: true,
+      references: {
+        model: "class",
+        key: "class_id",
+      },
     },
   },
   {

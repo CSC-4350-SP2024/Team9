@@ -1,35 +1,17 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
-const LoginPage = ({onLogin}) => {
+const LoginPage = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
-  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-    const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      const response = await fetch('/api/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (!response.ok) {
-        throw new Error('Login failed');
-      }
-      onLogin();
-      navigate('/dashboard');
- 
-    } catch (err) {
-      console.error('Error during login',err);
-    }
+    // Add your login logic here
+    console.log('Logging in with:', formData);
   };
 
   return (
