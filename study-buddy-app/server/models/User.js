@@ -22,6 +22,7 @@ User.init(
     username: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
     },
     email: {
       type: DataTypes.STRING,
@@ -37,10 +38,6 @@ User.init(
       validate: {
         len: [8],
       },
-    },
-    is_individual: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
     },
   },
   {

@@ -7,7 +7,7 @@ const chats = () => {
           <div className='flex items-center  h-12 p-3 gap-2 justify-left text-white hover:bg-blue-300'> {/* other chats */}
             <img src="" alt="" className ='bg-black h-7 w-7 rounded-full object-cover'/> {/* profile pic */}
           
-            <span className='flex gap-2 p-0'>Chat name</span>
+            <span className='flex gap-2 p-0'>CSC 101</span>
       </div>
     </div>
   )

@@ -5,7 +5,7 @@ class Pairing extends Model {}
 
 Pairing.init(
   {
-    pairing_id: {
+    id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
@@ -15,6 +15,30 @@ Pairing.init(
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: false,
+    },
+    userId1: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "user",
+        key: "id",
+      },
+    },
+    userId2: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "user",
+        key: "id",
+      },
+    },
+    classId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "class",
+        key: "id",
+      },
     },
   },
   {
