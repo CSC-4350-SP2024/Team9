@@ -33,7 +33,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/profile" element={<Profile />} />
         <Route
-          path="/pairingSuggestionPage"
+          path="/matches"
           element={<PairingSuggestionPage />}
         />
       </Routes>

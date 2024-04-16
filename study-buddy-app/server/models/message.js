@@ -11,6 +11,10 @@ Message.init(
       primaryKey: true,
       autoIncrement: true,
     },
+    sender_username: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     message_content: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -31,3 +35,4 @@ Message.init(
 );
 
 module.exports = Message;
+
