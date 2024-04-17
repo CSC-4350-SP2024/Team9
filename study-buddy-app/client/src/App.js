@@ -16,11 +16,18 @@ function App() {
 
   const handleLogin = () => {
     setIsLoggedIn(true);
+    window.localStorage.setItem('isLoggedIn', true);  //store isLoggedIn in local storage so it is not affected by refreshes
   };
 
   const handleLogout = () => {
     setIsLoggedIn(false);
+    window.localStorage.setItem('isLoggedIn', false);
   };
+
+  useEffect(() => {
+    setIsLoggedIn(JSON.parse(window.localStorage.getItem('isLoggedIn')));
+  }, []);
+
 
   return (
     <Router>
