@@ -12,6 +12,7 @@ export const Dashboard = () => {
     fetchClassList(); 
     fetchClasses();
   }, []);
+  
 
   const fetchClassList = async () => {
     try {

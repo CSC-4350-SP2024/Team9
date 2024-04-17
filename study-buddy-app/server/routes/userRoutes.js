@@ -68,8 +68,9 @@ router.post("/login", async (req, res) => {
 
 // destroy session or logout
 
-router.delete("/logout", (req, res) => {
+router.delete("/logout", async (req, res) => {
   if (req.session.loggedIn) {
+    await saveUserData(req.session.userID);
     req.session.destroy(() => {
       res.status(204).end();
     });
@@ -78,20 +79,24 @@ router.delete("/logout", (req, res) => {
   }
 });
 
-router.get("/api/user", async (req, res) => {
+//get logged in user
+router.get("/user", async (req, res) => {
   try {
-    const user = await User.findOne({
-      where: { id: req.user.id }, // Assuming you have authentication middleware that adds the user object to the request (req.user)
-      attributes: ["id", "username", "email"], // Select specific attributes to include in the response
-      include: [{ model: Class, attributes: ["className"] }], // Assuming you have a separate model for enrolled classes
-    });
+    console.log("Session Data:", req.session);
+    console.log("User ID:", req.session.userID);
+    if (!req.session.userID) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+
+    const userId = req.session.userID;
+    const user = await User.findByPk(userId);
+    console.log(user);
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // Send the user data in the response
-    res.json(user);
+    res.status(200).json({ user });
   } catch (error) {
     console.error("Error fetching user data:", error);
     res.status(500).json({ message: "Internal server error" });
