@@ -2,15 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 
 export const Dashboard = () => {
+  const [user, setUser] = useState(null);
   const [classes, setClasses] = useState([]);
   const [selectedClass, setSelectedClass] = useState('');
   const [classList, setClassList] = useState([]);
   const [showClasses, setShowClasses] = useState(false);
+    const [errorText, setErrorText] = useState('')
+
 
   useEffect(() => {
 
     fetchClassList(); 
     fetchClasses();
+    fetchUser();
   }, []);
   
 
@@ -29,6 +33,29 @@ export const Dashboard = () => {
     }
   };
 
+  const fetchUser = async () => {
+    fetch('/api/user', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include',
+  })
+  .then(response => {
+    if (response.ok) {
+      return response.json();
+    } else {
+      throw new Error('Failed to fetch user data');
+    }
+  })
+  .then(data => {
+    setUser(data.user);
+  })
+  .catch(error => {
+    console.error('Error fetching user data:', error.message);
+  });
+  }
+
   const handleAddClass = async () => {
     try {
       const response = await fetch('/api/addClass', {
@@ -42,11 +69,13 @@ export const Dashboard = () => {
   
         fetchClasses();
         fetchClassList();
+        setErrorText("");
 
         setClassList(prevClassList => prevClassList.filter(className => className !== selectedClass));
 
         setSelectedClass('');
       } else {
+        setErrorText("Class has already been added");
         throw new Error('Failed to add class');
       }
     } catch (error) {
@@ -91,7 +120,7 @@ export const Dashboard = () => {
 
   return (
     <div className="flex flex-col items-center bg-slate-100 h-screen">
-      <h2 className="text-2xl font-bold text-gray-900 my-8">Dashboard</h2>
+      <h1 className="text-2xl font-bold text-gray-900 my-8">Welcome, {user && user.username}</h1>
 
       {showClasses && (
         <div className="w-full max-w-md">
@@ -106,8 +135,9 @@ export const Dashboard = () => {
           ))}
         </div>
       )}
+      <p className=' text-red-500 mb-8'>{errorText}</p>
 
-      <div className="flex flex justify-center items-center">
+      <div className="flex justify-center items-center">
         <select
           value={selectedClass}
           onChange={(e) => setSelectedClass(e.target.value)}
