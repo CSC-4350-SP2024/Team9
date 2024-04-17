@@ -31,6 +31,24 @@ Request.init(
       allowNull: false,
       defaultValue: DataTypes.NOW,
     },
+	
+    sender_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "user",
+        key: "id"
+      },
+    },
+		
+    receiver_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "user",
+        key: "id"
+      },
+    },
   },
   {
     sequelize,
