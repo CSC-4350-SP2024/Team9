@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import PairingSuggestion from '../components/pairing/pairingSuggestion.jsx'
 
 const PairingSuggestionPage = () => {
@@ -6,7 +6,12 @@ const PairingSuggestionPage = () => {
 
   const handleIsAdded = () => {
     setIsAdded(!isAdded);
+    window.localStorage.setItem('isAdded', !isAdded);
   }
+
+   useEffect(() => {
+    setIsAdded(JSON.parse(window.localStorage.getItem('isAdded')));
+  }, []);
   
   return (
      <div className="flex flex-col items-center bg-slate-100 h-screen">
