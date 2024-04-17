@@ -33,4 +33,46 @@ router.get("/classmates", async (req, res) => {
   }
 });
 
+router.post("/createRequest", async (req, res) => {
+  try {
+    const createRequest = await Request.create({
+      status: 'pending',
+      message: req.body.message_request,
+      sender_id: req.session.userID,
+      receiver_id: req.body.receiver_id
+    });
+
+    req.session.save(() => {
+      res.status(200).json(createRequest);
+    });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  
+  }
+});
+
+router.get("/getPendingRequests", async (req, res) => {
+  const userId = req.session.userID; // Assuming you have user authentication and req.user contains user information
+
+  try {
+     const pendingRequests = await Request.findAll({
+       where: { receiver_id: userId },
+       attributes: ['sender_id'],
+     });
+    
+    const senderUsernames = await User.findAll({
+      where: { id: pendingRequests },
+      attributes: { exclude: ['email', 'password'] },
+    })
+     
+     res.json(senderUsernames);
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 module.exports = router;
