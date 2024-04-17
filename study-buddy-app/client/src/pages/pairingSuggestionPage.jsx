@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import PairingSuggestion from '../components/pairing/pairingSuggestion.jsx'
 
 const PairingSuggestionPage = () => {
-  const [isAdded, setIsAdded] = useState(false);
+  const [isAdded, setIsAdded] = useState(false);  //might not need this when using the SQL table data
 
   const handleIsAdded = () => {
     setIsAdded(!isAdded);
@@ -22,8 +22,8 @@ const PairingSuggestionPage = () => {
             <div className="bg-white my-4 p-4 rounded shadow-md w-full flex justify-between items-center">
               <p className="text-lg font-semibold">Friend 1</p>
           <div className="flex space-x-4">
-            {!isAdded ? (
-              < button
+            {!isAdded ? (   //button changes based on if table data is true or false
+              < button    //change this to be based on the SQL table data, rather than the variable isAdded
                 className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
               onClick = {handleIsAdded}>Add</button>
             ) : (
