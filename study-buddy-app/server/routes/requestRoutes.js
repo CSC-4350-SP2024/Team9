@@ -74,8 +74,49 @@ router.get("/getPendingRequests", async (req, res) => {
     });
 
     const pendingRequests = user ? user.sentRequests : [];
-
+    console.log(pendingRequests);
     res.json(pendingRequests);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+router.get("/friends", async (req, res) => {
+  const userId = req.session.userID;
+
+  try {
+    // Find the user's friends'
+    const getFriends = await Friendship.findAll({
+      where: { user_id: userId },
+      attributes: ['id'],
+      include: [
+        {
+          model: User,
+          as: 'friend',
+          attributes: ['username', 'phone_number', 'discord_name', 'id'],
+        },
+      ],
+    });
+    console.log(getFriends)
+    res.status(200).json(getFriends);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+router.delete("/removeFriend", async (req, res) => {
+  const userId = req.session.userID;
+  const friendId = req.body.friendId;
+
+  try {
+    const deleteFriend = await Friendship.destroy({
+      where: {user_id: userId,
+      friend_id: friendId},
+    })
+
+    res.status(200).json(deleteFriend);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
