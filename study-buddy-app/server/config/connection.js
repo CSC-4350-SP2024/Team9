@@ -1,5 +1,6 @@
 //connecting to database
 const { Sequelize } = require("sequelize");
+require("dotenv").config();
 
 const sequelize = new Sequelize("studybuddy_db", "root", "$Vale072801", {
   host: "localhost",
