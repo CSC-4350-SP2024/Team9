@@ -40,7 +40,7 @@ const PairingSuggestionPage = () => {
     };
 
     fetchData();
-  }, []);
+  }, [classmates, pendingRequests, friends]);
 
   const handleSendRequest = async (classmateID) => {
     try {
