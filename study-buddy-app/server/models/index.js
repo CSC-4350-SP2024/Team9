@@ -10,16 +10,16 @@ const Friendship = require("./friendship");
 User.belongsToMany(Class, { through: "UserClass" });
 Class.belongsToMany(User, { through: "UserClass" });
 
-Pairing.belongsTo(User, { foreignKey: "user1_id" });
-Pairing.belongsTo(User, { foreignKey: "user2_id" });
+Friendship.belongsTo(User, { as: 'user', foreignKey: "user_id" });
+Friendship.belongsTo(User, { as: 'friend', foreignKey: "friend_id" });
 
 Message.belongsTo(User, { foreignKey: "user_id" });
 Message.belongsTo(ChatRoom, { foreignKey: "room_id" });
 
 ChatRoom.belongsTo(Class, { foreignKey: "class_id" });
 
-User.hasMany(Pairing, { foreignKey: "user1_id" });
-User.hasMany(Pairing, { foreignKey: "user2_id" });
+User.hasMany(Friendship, { as: 'user', foreignKey: "user_id" });
+User.hasMany(Friendship, { as: 'friend', foreignKey: "friend_id" });
 
 ChatRoom.hasMany(Message, { foreignKey: "room_id" });
 Class.hasOne(ChatRoom, { foreignKey: "class_id" });
