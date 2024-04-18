@@ -24,7 +24,7 @@ Request.init(
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: "user", // Assuming the sender is associated with the User model
+        model: "user",
         key: "id",
       },
     },
@@ -32,7 +32,7 @@ Request.init(
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: "user", // Assuming the receiver is associated with the User model
+        model: "user",
         key: "id",
       },
     },
@@ -43,8 +43,8 @@ Request.init(
     modelName: "request",
     indexes: [
       {
-        unique: true, // Enforce uniqueness
-        fields: ["sender_id", "receiver_id"], // Combine sender and receiver IDs
+        unique: true,
+        fields: ["sender_id", "receiver_id"],
       },
     ],
   }

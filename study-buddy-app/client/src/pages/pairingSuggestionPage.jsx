@@ -53,7 +53,7 @@ const PairingSuggestionPage = () => {
       });
 
       if (response.ok) {
-        // Update requestSentMap using functional update
+    
         setRequestSentMap(prevMap => ({ ...prevMap, [classmateID]: true }));
       } else {
         throw new Error('Failed to send request');

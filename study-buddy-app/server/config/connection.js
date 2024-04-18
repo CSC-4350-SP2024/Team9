@@ -1,7 +1,7 @@
 //connecting to database
 const { Sequelize } = require("sequelize");
 
-const sequelize = new Sequelize("studybuddy_db", "root", "$Vale072801", {
+const sequelize = new Sequelize("studybuddy_db", "root", "password", {
   host: "localhost",
   dialect: "mysql",
 });

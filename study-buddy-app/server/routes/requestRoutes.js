@@ -1,5 +1,3 @@
-// routes/api.js
-
 const express = require("express");
 const router = express.Router();
 const { User, Request, Friendship, Class } = require("../models");
@@ -9,24 +7,21 @@ router.get("/classmates", async (req, res) => {
   try {
     const userId = req.session.userID;
 
-    // Fetch the logged-in user
     const user = await User.findByPk(userId, { include: Class });
     if (!user) {
       console.log("User not found");
       return res.status(404).json({ message: "User not found" });
     }
 
-    // Fetch classmates who share at least one class with the logged-in user
     const classmates = await User.findAll({
       include: {
         model: Class,
         where: {
           class_id: user.classes.map((classInstance) => classInstance.class_id),
-        }, // Filter by classes in common
+        },
       },
     });
 
-    // Exclude the logged-in user from the list of classmates
     const loggedInUserClassmates = classmates.filter(
       (classmate) => classmate.id !== userId
     );
@@ -39,8 +34,6 @@ router.get("/classmates", async (req, res) => {
 });
 
 // Create a new request
-// Create a new request
-// Create a new request
 router.post("/createRequest", async (req, res) => {
   try {
     const createRequest = await Request.create({
@@ -50,7 +43,6 @@ router.post("/createRequest", async (req, res) => {
       receiver_id: req.body.receiver_id,
     });
 
-    // Associate the request with the receiver user
     const receiverUser = await User.findByPk(req.body.receiver_id);
     if (receiverUser) {
       await receiverUser.addReceivedRequest(createRequest);
@@ -75,19 +67,65 @@ router.get("/getPendingRequests", async (req, res) => {
       include: [
         {
           model: Request,
-          as: "sentRequests", // Assuming this is the correct alias for received requests
-          where: { status: "pending" }, // Include sender's data
+          as: "sentRequests",
+          where: { status: "pending" },
         },
       ],
     });
 
-    // Extract the pending requests
     const pendingRequests = user ? user.sentRequests : [];
 
     res.json(pendingRequests);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+// Accept friend request
+router.post("/acceptFriendRequest", async (req, res) => {
+  try {
+    const { requestId } = req.body;
+
+    // Find the friend request by ID
+    const request = await Request.findByPk(requestId);
+    if (!request) {
+      return res.status(404).json({ message: "Friend request not found" });
+    }
+
+    // Update the status of the friend request to "accepted"
+    request.status = "accepted";
+    await request.save();
+
+    const senderUser = await request.getSender();
+    const receiverUser = await request.getReceiver();
+    await senderUser.addFriend(receiverUser);
+    await receiverUser.addFriend(senderUser);
+
+    res.status(200).json({ message: "Friend request accepted successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// Reject friend request
+router.post("/rejectFriendRequest", async (req, res) => {
+  try {
+    const { requestId } = req.body;
+
+    const request = await Request.findByPk(requestId);
+    if (!request) {
+      return res.status(404).json({ message: "Friend request not found" });
+    }
+
+    request.status = "rejected";
+    await request.save();
+
+    res.status(200).json({ message: "Friend request rejected successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
   }
 });
 
