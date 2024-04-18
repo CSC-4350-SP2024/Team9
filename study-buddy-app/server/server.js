@@ -3,6 +3,7 @@ const express = require("express");
 const sequelize = require("./config/connection");
 const session = require("express-session");
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
+const path = require("path");
 const cors = require("cors");
 const { User, Class, Pairing, ChatRoom, Message } = require("./models");
 
