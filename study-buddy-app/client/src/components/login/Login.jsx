@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 const LoginPage = ({onLogin}) => {
   const [formData, setFormData] = useState({ email: '', password: '' });
+  const [errorText, setErrorText] = useState('')
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -22,6 +23,7 @@ const LoginPage = ({onLogin}) => {
       });
 
       if (!response.ok) {
+         setErrorText("Incorrect username or password");
         throw new Error('Login failed');
       }
       onLogin();
@@ -35,6 +37,7 @@ const LoginPage = ({onLogin}) => {
   return (
     <div className="flex justify-center items-center h-screen bg-slate-100">
       <div className="w-full max-w-md p-8 bg-white rounded shadow-md">
+         <p className=' text-red-500 mb-8'>{errorText}</p>
         <h2 className="text-2xl font-bold text-gray-900 mb-8">Login</h2>
 
         <form onSubmit={handleSubmit}>

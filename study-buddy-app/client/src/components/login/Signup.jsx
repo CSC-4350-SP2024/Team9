@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const SignupPage = ({onLogin}) => {
+const SignupPage = ({ onLogin }) => {
+  const [errorText, setErrorText] = useState('')
   const [formData, setFormData] = useState({ email: '', username:'', password: '' });
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
@@ -26,6 +27,7 @@ const SignupPage = ({onLogin}) => {
       });
 
       if (!response.ok) {
+         setErrorText("Email or username already in use, please enter another");
         throw new Error('Failed to sign up. Please try again.');
       }
       onLogin();
@@ -40,6 +42,7 @@ const SignupPage = ({onLogin}) => {
   return (
     <div className="flex justify-center items-center h-screen bg-slate-100">
       <div className="w-full max-w-md p-8 bg-white rounded shadow-md">
+         <p className=' text-red-500 mb-8'>{errorText}</p>
         <h2 className="text-2xl font-bold text-gray-900 mb-8">Sign Up</h2>
 
         <form onSubmit={handleSubmit}>
