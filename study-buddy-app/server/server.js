@@ -32,6 +32,6 @@ app.use(express.json());
 app.use(routes);
 
 // Sync Database and Start Server
-sequelize.sync({ alter: true }).then(() => {
+sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 });
