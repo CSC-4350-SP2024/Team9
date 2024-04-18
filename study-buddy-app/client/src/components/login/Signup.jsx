@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 const SignupPage = ({ onLogin }) => {
   const [errorText, setErrorText] = useState('')
-  const [formData, setFormData] = useState({ email: '', username:'', password: '' });
+  const [formData, setFormData] = useState({ email: '', username:'', password: '', phone_number: '', discord_name: '' });
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -56,6 +56,30 @@ const SignupPage = ({ onLogin }) => {
               onChange={handleInputChange}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
               required
+            />
+          </div>
+
+          <div className="mb-4">
+            <label htmlFor="phone_number" className="block mb-2 font-semibold">Phone Number (Optional)</label>
+            <input
+              type="phone_number"
+              id="phone_number"
+              name="phone_number"
+              value={formData.phone_number}
+              onChange={handleInputChange}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+            />
+          </div>
+
+          <div className="mb-4">
+            <label htmlFor="discord_name" className="block mb-2 font-semibold">Discord (Optional)</label>
+            <input
+              type="discord_name"
+              id="discord_name"
+              name="discord_name"
+              value={formData.discord_name}
+              onChange={handleInputChange}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
             />
           </div>
 
