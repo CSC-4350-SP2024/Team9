@@ -11,7 +11,7 @@ const classData = [
   { class_name: "CSC 3350" },
   { class_name: "CSC 4222" },
   { class_name: "CSC 4360" },
-  { class_name: "CSC4370 " },
+  { class_name: "CSC 4370 " },
 ];
 
 const classSeeds = () => Class.bulkCreate(classData);
