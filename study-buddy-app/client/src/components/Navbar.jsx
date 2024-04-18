@@ -26,6 +26,7 @@ const Navbar = ({ isLoggedIn, onLogout }) => {
                     <>
                   <li style={{ fontFamily: "lato", fontWeight: 600, fontSize: "20px" }}><Link to="/dashboard">Dashboard</Link></li>
                       <li style={{ fontFamily: "lato", fontWeight: 600, fontSize: "20px" }}><Link to="/matches">Matches</Link></li>
+                      <li style={{ fontFamily: "lato", fontWeight: 600, fontSize: "20px" }}><Link to="/editContactInfo">Edit Contact Info</Link></li>
                   <li style={{ fontFamily: "lato", fontWeight: 600, fontSize: "20px" }}>
                     <Link to="/" onClick={onLogout}>
                       Logout
