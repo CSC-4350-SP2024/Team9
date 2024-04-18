@@ -30,7 +30,7 @@ const [classes, setClasses] = useState([]);
           <div className='flex items-center  h-12 p-3 gap-2 justify-left hover:bg-slate-300'> {/* other chats */}
           {/* <img src="" alt="" className='bg-black h-7 w-7 rounded-full object-cover' /> profile pic */}
           
-          <span className='flex gap-2 p-0'>{classItem.class_name}</span></div></Link>
+          <span className='flex gap-2 p-0 truncate'>{classItem.class_name}</span></div></Link>
         
       ))}
     </div>
