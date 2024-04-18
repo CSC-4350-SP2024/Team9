@@ -43,6 +43,14 @@ User.init(
         len: [8],
       },
     },
+    phone_number: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    discord_name: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
   },
   {
     hooks: {
