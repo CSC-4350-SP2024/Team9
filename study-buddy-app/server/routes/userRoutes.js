@@ -8,6 +8,8 @@ router.post("/signup", async (req, res) => {
     const createUser = await User.create({
       username: req.body.username,
       email: req.body.email,
+      phone_number: req.body.phone_number,
+      discord_name: req.body.discord_name,
       password: req.body.password,
     });
 
@@ -25,6 +27,41 @@ router.post("/signup", async (req, res) => {
     });
   } catch (err) {
     console.error("Error during signup:", err);
+    res.status(500).json(err);
+  }
+});
+
+router.post("/editContactInfo", async (req, res) => {
+  try {
+    const userContactInfo = await User.update({
+      phone_number: req.body.phone_number,
+      discord_name: req.body.discord_name,
+    },
+    {where: {id: req.session.userID}});
+
+
+
+    req.session.save(() => {
+      res.status(200).json(userContactInfo);
+    });
+  } catch (err) {
+    console.error("Internal server error", err);
+    res.status(500).json(err);
+  }
+});
+
+router.get("/getContactInfo", async (req, res) => {
+  try {
+    const getContactInfo = await User.findOne({
+      where: { id: req.session.userID },
+      attributes: ['phone_number', 'discord_name'],
+  });
+
+    req.session.save(() => {
+      res.status(200).json(getContactInfo);
+    });
+  } catch (err) {
+    console.error("Internal server error", err);
     res.status(500).json(err);
   }
 });
