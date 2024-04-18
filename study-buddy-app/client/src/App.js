@@ -4,6 +4,7 @@ import Login from "./components/login/Login.jsx";
 import Signup from "./components/login/Signup.jsx";
 import Navbar from "./components/Navbar.jsx";
 import ChatPage from "./pages/chatPage.jsx";
+import EditContactInfo from "./pages/editContactInfo.jsx";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Dashboard from "./pages/dashboard.jsx";
 import PairingSuggestionPage from "./pages/pairingSuggestionPage.jsx";
@@ -39,6 +40,7 @@ function App() {
         <Route path="/chatPage/:chatID" element={<ChatPage />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/matches" element={<PairingSuggestionPage />} />
+        <Route path="/editContactInfo" element={<EditContactInfo />} />
       </Routes>
     </Router>
   );
