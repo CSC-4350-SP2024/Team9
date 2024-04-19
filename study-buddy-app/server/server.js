@@ -4,7 +4,6 @@ const sequelize = require("./config/connection");
 const session = require("express-session");
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
 const cors = require("cors");
-const path = require("path");
 const { User, Class, Pairing, ChatRoom, Message } = require("./models");
 
 const app = express();
@@ -29,13 +28,6 @@ app.use(session(sess));
 app.use(cors());
 
 app.use(express.json());
-
-// serving distribution folder build
-app.use(express.static(path.join(__dirname, "../client/build")));
-
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../client/build/index.html"));
-});
 
 app.use(routes);
 
