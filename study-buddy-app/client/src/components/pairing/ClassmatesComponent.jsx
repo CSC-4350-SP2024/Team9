@@ -1,6 +1,34 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-const ClassmatesComponent = ({ classmates, friends, requestSentMap, handleSendRequest }) => {
+const ClassmatesComponent = ({ classmates, friends, pendingRequests, requestSentMap, handleSendRequest }) => {
+
+  const requestExist = async (classmateID) => {
+    const requestExistsResponse = await fetch('/api/requestExists', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ receiverId: classmateID }),
+    });
+        const requestExistsData = await handleResponse(requestExistsResponse);
+    
+    if(requestExistsData != 0){
+      return false;
+    } else{
+      return false;
+    }
+  };
+
+
+  const handleResponse = async (response) => {
+    if (response.ok) {
+      return response.json();
+    } else {
+      throw new Error(`Failed to fetch data: ${response.status} ${response.statusText}`);
+    }
+  };
+
+
   return (
     <div>
       <h1 className="text-xl font-bold mt-8 mb-2">People You May Know</h1>

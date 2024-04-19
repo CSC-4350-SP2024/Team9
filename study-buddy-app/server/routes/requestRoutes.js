@@ -63,24 +63,55 @@ router.get("/getPendingRequests", async (req, res) => {
 
   try {
     // Find the user including pending requests
-    const user = await User.findByPk(userId, {
+    const getPending = await Request.findAll({
+      where: { 
+         receiver_id: userId
+      },
+      attributes: ['id'],
       include: [
         {
-          model: Request,
-          as: "sentRequests",
-          where: { status: "pending" },
+          model: User,
+          as: 'sender',
+          attributes: ['username', 'id'],
         },
       ],
     });
-
-    const pendingRequests = user ? user.sentRequests : [];
-    console.log(pendingRequests);
-    res.json(pendingRequests);
+    console.log(getPending)
+    res.status(200).json(getPending);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
+// Get pending requests for the logged-in user
+router.post("/requestExists", async (req, res) => {
+  const senderId = req.session.userID;
+  const receiverId = req.body.receiverId;
+
+  try {
+    // Find the request exists
+    const requestExist = await Request.count({
+      where: { 
+         sender_id: senderId,
+         receiver_id: receiverId,
+      },
+    });
+    console.log('hello');
+    console.log(requestExist);
+    // if(requestExist > 0){
+    //   res.status(200).json(true);
+    // }
+    // else{
+    //   res.status(200).json(false);
+    // }
+    res.status(200).json(requestExist);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 
 router.get("/friends", async (req, res) => {
   const userId = req.session.userID;
@@ -126,24 +157,26 @@ router.delete("/removeFriend", async (req, res) => {
 // Accept friend request
 router.post("/acceptFriendRequest", async (req, res) => {
   try {
-    const { requestId } = req.body;
+    const senderId  = req.body.senderId;
+    const receiverId = req.session.userID;
+    const requestId = req.body.requestId;
 
-    // Find the friend request by ID
-    const request = await Request.findByPk(requestId);
-    if (!request) {
-      return res.status(404).json({ message: "Friend request not found" });
-    }
+    // Delete the pending request
+    const deleteRequest = await Request.destroy({
+      where: {id: requestId},
+    });
 
-    // Update the status of the friend request to "accepted"
-    request.status = "accepted";
-    await request.save();
+    //add to the friendship table
+    const addFriend = await Friendship.create({
+      friend_id: senderId,
+      user_id: receiverId,
 
-    const senderUser = await request.getSender();
-    const receiverUser = await request.getReceiver();
-    await senderUser.addFriend(receiverUser);
-    await receiverUser.addFriend(senderUser);
+    })
 
-    res.status(200).json({ message: "Friend request accepted successfully" });
+
+
+    json(deleteRequest);
+    res.status(200).json(addFriend);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });
@@ -151,19 +184,16 @@ router.post("/acceptFriendRequest", async (req, res) => {
 });
 
 // Reject friend request
-router.post("/rejectFriendRequest", async (req, res) => {
+router.delete("/rejectFriendRequest", async (req, res) => {
   try {
-    const { requestId } = req.body;
+    const requestId = req.body.requestId;
 
-    const request = await Request.findByPk(requestId);
-    if (!request) {
-      return res.status(404).json({ message: "Friend request not found" });
-    }
+    const requestReject = await Request.destroy({
+      where: {id: requestId}
+    });
 
-    request.status = "rejected";
-    await request.save();
 
-    res.status(200).json({ message: "Friend request rejected successfully" });
+    res.status(200).json(requestReject);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });

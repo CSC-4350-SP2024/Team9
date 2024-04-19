@@ -40,7 +40,7 @@ const PairingSuggestionPage = () => {
     };
 
     fetchData();
-  }, [classmates, pendingRequests, friends]);
+  }, [pendingRequests, friends]);
 
   const handleSendRequest = async (classmateID) => {
     try {
@@ -53,7 +53,6 @@ const PairingSuggestionPage = () => {
       });
 
       if (response.ok) {
-    
         setRequestSentMap(prevMap => ({ ...prevMap, [classmateID]: true }));
       } else {
         throw new Error('Failed to send request');
@@ -73,9 +72,9 @@ const PairingSuggestionPage = () => {
 
   return (
     <div className="flex flex-col items-center bg-slate-100 min-h-screen p-8">
-      <FriendsComponent friends={friends} />
-      <PendingRequestsComponent pendingRequests={pendingRequests} />
-      <ClassmatesComponent classmates={classmates} friends={friends} requestSentMap={requestSentMap} handleSendRequest={handleSendRequest} />
+      <FriendsComponent friends={friends} classmates={classmates} setClassmates={setClassmates} />
+      <PendingRequestsComponent pendingRequests={pendingRequests} classmates={classmates} setClassmates={setClassmates} />
+      <ClassmatesComponent classmates={classmates} friends={friends} pendingRequests={pendingRequests} requestSentMap={requestSentMap} handleSendRequest={handleSendRequest} />
     </div>
   );
 };
