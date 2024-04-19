@@ -175,7 +175,7 @@ router.post("/acceptFriendRequest", async (req, res) => {
 
 
 
-    res.status(200).json(deleteRequest);
+    json(deleteRequest);
     res.status(200).json(addFriend);
   } catch (error) {
     console.error(error);
